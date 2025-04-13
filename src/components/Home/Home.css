@@ -1,0 +1,81 @@
+.home {
+  text-align: center;
+  padding: 20px;
+}
+
+.home h1 {
+  color: #333;
+}
+
+.home p {
+  color: #666;
+}
+
+.todos {
+  padding: 20px;
+}
+
+.task-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-inputs input,
+.task-inputs select,
+.task-inputs button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.task-inputs button {
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+}
+
+.task-inputs button:hover {
+  background-color: #145a9e;
+}
+
+.task-list,
+.completed-tasks {
+  margin-top: 20px;
+}
+
+.task-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.task-item h3 {
+  margin: 0 0 5px;
+}
+
+.task-item p {
+  margin: 0;
+}
+
+.task-item button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.task-item button:hover {
+  background-color: #388e3c;
+}
+
+.completed {
+  opacity: 0.7;
+}
