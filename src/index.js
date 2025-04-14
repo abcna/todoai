@@ -1,31 +1,64 @@
-import React from "react";
+import React, { useState, createContext, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// Removed unused import
-// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-// Import BrowserRouter for routing
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import MobileMenu from "./components/MobileMenu/MobileMenu";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// Wrap the app with Router and define routes
+export const TaskContext = createContext();
+
+const App = () => {
+  const [completedTasks, setCompletedTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("completedTasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    console.log("Saving completed tasks to localStorage:", completedTasks);
+    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+  }, [completedTasks]);
+
+  useEffect(() => {
+    console.log("Saving tasks to localStorage:", tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    const savedTasks = localStorage.getItem("completedTasks");
+    console.log("Loaded completed tasks from localStorage:", savedTasks);
+  }, []);
+
+  return (
+    <TaskContext.Provider
+      value={{ tasks, setTasks, completedTasks, setCompletedTasks }}
+    >
+      <Router>
+        <div style={{ paddingBottom: "60px" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </div>
+        <MobileMenu />
+      </Router>
+    </TaskContext.Provider>
+  );
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <div style={{ paddingBottom: "60px" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
-      <MobileMenu />
-    </Router>
+    <App />
   </React.StrictMode>
 );
 
